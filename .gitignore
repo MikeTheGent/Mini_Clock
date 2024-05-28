@@ -1,3 +1,7 @@
+.pio
+.vscode
+data/settings.json
+
 # Prerequisites
 *.d
 

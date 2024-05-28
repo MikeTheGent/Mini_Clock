@@ -1,0 +1,7 @@
+{
+    "WiFi_SSID": "",
+    "WiFi_Password": "",
+    "NTP_Server": "uk.pool.ntp.org",
+    "TZ": "GMT0BST,M3.5.0/1,M10.5.0",
+    "Alexa_Name": "Network Clock"
+}

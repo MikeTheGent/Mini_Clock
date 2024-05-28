@@ -1,0 +1,8 @@
+
+Copy settings.json to data, edit in your WiFi credentials & create a data
+partition on your microcontroller. Edit in your TZ string for yout time zone. You
+can probably find that here: 
+https://github.com/esp8266/Arduino/blob/master/cores/esp8266/TZ.h
+
+Copy User_Setup.h to TFT_eSPI directory. Edit this file as necessary for
+the pins your controller uses for displays, sensors etc.
