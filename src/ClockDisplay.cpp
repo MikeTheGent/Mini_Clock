@@ -16,7 +16,7 @@ namespace ClockDisplay {
 
     void begin() {
         display.begin();
-        switchDisplay(true, 128);
+        switchDisplay(true, 32);
         display.setBlink(3);
         display.displayTime(99, 99);
     }

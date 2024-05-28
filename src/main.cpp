@@ -31,17 +31,16 @@ void setup() {
 void loop() {
     static unsigned long nextSensorUpdate = 0;
     static unsigned long previousMillis = 0;
-    //AlexaControl::loop();
+    AlexaControl::loop();
 
-    /*
     DateTime now = NetworkTime::now();
     static uint8_t currentMinute = 61;
 
     if (now.minute() != currentMinute) {
+        Serial.printf("Now %s\n", now.timestamp().c_str());
         ClockDisplay::displayTime(now.hour(), now.minute());
         currentMinute = now.minute();
     }
-    */
 
     if (millis() < previousMillis) {
         nextSensorUpdate = millis();
@@ -86,14 +85,15 @@ static bool openSettings() {
 }
 
 static WiFiConnection::wiFiStatus connectWiFi() {
+    EnvironmentDisplay::displayMessage("Connecting");
     WiFiConnection::wiFiStatus connected = WiFiConnection::begin(
             Settings::get("WiFi_SSID"), Settings::get("WiFi_Password"));
 
     switch (connected) {
         case WiFiConnection::connected:
             EnvironmentDisplay::displayMessage("Connected");
-            //AlexaControl::begin(Settings::get("Alexa_Name"), onDisplayChange);
-            //NetworkTime::begin();
+            AlexaControl::begin(Settings::get("Alexa_Name"), onDisplayChange);
+            NetworkTime::begin();
             break;
 
         case WiFiConnection::disconnected:

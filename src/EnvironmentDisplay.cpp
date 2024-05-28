@@ -66,15 +66,11 @@ namespace EnvironmentDisplay {
     }
 
     void displayMessage(const char *message) {
-        clearMessage();
+        tft.fillRect(10, 129, 310, 34, backgroundColour);
         tft.setTextColor(TFT_GREEN, backgroundColour);
         tft.setFreeFont(largeFont);
         tft.setCursor(10, 154);
         tft.print(message);
-    }
-
-    void clearMessage() {
-        tft.fillRect(220, 129, 99, 34, backgroundColour);
     }
 
     void switchDisplay(bool state, unsigned char value) {
