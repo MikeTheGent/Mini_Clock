@@ -3,7 +3,7 @@
 #include <RTClib.h>
 
 namespace NetworkTime {
-    void begin(void);
+    bool begin(void);
     DateTime now(void);
 }
 

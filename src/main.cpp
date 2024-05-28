@@ -37,7 +37,6 @@ void loop() {
     static uint8_t currentMinute = 61;
 
     if (now.minute() != currentMinute) {
-        Serial.printf("Now %s\n", now.timestamp().c_str());
         ClockDisplay::displayTime(now.hour(), now.minute());
         currentMinute = now.minute();
     }
@@ -93,7 +92,11 @@ static WiFiConnection::wiFiStatus connectWiFi() {
         case WiFiConnection::connected:
             EnvironmentDisplay::displayMessage("Connected");
             AlexaControl::begin(Settings::get("Alexa_Name"), onDisplayChange);
-            NetworkTime::begin();
+
+            if (! NetworkTime::begin()) {
+                EnvironmentDisplay::displayMessage("RTC not found");
+            }
+
             break;
 
         case WiFiConnection::disconnected:

@@ -5,36 +5,36 @@
 
 namespace NetworkTime {
     namespace {
-        //long gmtOffsetSeconds = 0;
-        //long daylightOffsetSeconds = 0;
         const char *ntpServer = NULL;
         RTC_DS3231 rtc;
+        bool rtcPresent = false;
+
     }
 
-    void begin() {
-        //configTime(gmtOffsetSeconds, daylightOffsetSeconds, ntpServer);
+    bool begin() {
         ntpServer = Settings::get("NTP_Server");
         configTime(0, 0, ntpServer);
-
         setenv("TZ", Settings::get("TZ"), 1);
 
         if (rtc.begin()) {
             struct tm timeinfo;
             getLocalTime(&timeinfo);
-            Serial.printf("Timeinfo %s\n", asctime(&timeinfo));
             DateTime now(timeinfo.tm_year + 1900, timeinfo.tm_mon + 1, timeinfo.tm_mday, 
                     timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
             rtc.adjust(now);
-            Serial.printf("Adjust %s\n", now.timestamp().c_str());
-            Serial.printf("Adjusted %s\n", rtc.now().timestamp().c_str());
+            rtcPresent = true;
         }
-        else {
-            Serial.println("No RTC");
-        }
+
+        return rtcPresent;    
     }
 
     DateTime now() {
-        return rtc.now();
+        if (rtcPresent) {
+            return rtc.now();
+        }
+        else {
+            return DateTime();
+        }
     }
 }
 
