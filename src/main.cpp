@@ -2,15 +2,17 @@
 #include <Arduino.h>
 #include <LittleFS.h>
 #include <Wire.h>
+#include <RTClib.h>
 #include "Settings.h"
 #include "WiFiConnection.h"
 #include "AlexaControl.h"
+#include "NetworkTime.h"
 #include "EnvironmentDisplay.h"
 #include "ClockDisplay.h"
 #include "Sensors.h"
 
-static void connectWiFi(void);
-static void openSettings();
+static WiFiConnection::wiFiStatus connectWiFi(void);
+static bool openSettings();
 static void onDisplayChange(bool, unsigned char value);
 static void updateEnvironment(void);
 
@@ -21,47 +23,45 @@ void setup() {
     ClockDisplay::begin();
     Sensors::begin();
 
-    /*
-    for (int i = 0 ; i < 5 ; i++) {
-        delay(1000);
-        Serial.printf("Sleep %d\n", i + 1);
-    }
-    */
-
-    if (LittleFS.begin()) {
-        switch (Settings::begin()) {
-            case Settings::ok:
-                EnvironmentDisplay::displayMessage(Settings::get("WiFi_SSID"));
-                break;
-
-            case Settings::oversizeFile:
-                EnvironmentDisplay::displayMessage("Settings too big");
-                break;
-
-            case Settings::fileNotFound:
-                EnvironmentDisplay::displayMessage("No settings file");
-                break;
-
-            default:
-                break;
-        }
+    if (openSettings()) {
+        connectWiFi();
     }
 }
 
 void loop() {
-    Sensors::update();
-    Serial.printf("Temperature %.1f\n", Sensors::getTemperature());
-    Serial.printf("Humidity    %.0f\n", Sensors::getHumidity());
-    Serial.printf("Pressure    %.0f\n", Sensors::getPressure());
-    Serial.printf("Brightness  %ld\n", Sensors::getBrightness());
-    delay(3000);
+    static unsigned long nextSensorUpdate = 0;
+    static unsigned long previousMillis = 0;
+    //AlexaControl::loop();
+
+    /*
+    DateTime now = NetworkTime::now();
+    static uint8_t currentMinute = 61;
+
+    if (now.minute() != currentMinute) {
+        ClockDisplay::displayTime(now.hour(), now.minute());
+        currentMinute = now.minute();
+    }
+    */
+
+    if (millis() < previousMillis) {
+        nextSensorUpdate = millis();
+    }
+
+    previousMillis = millis();
+
+    if (millis() > nextSensorUpdate) {
+        updateEnvironment();
+        nextSensorUpdate = millis() + 10000;
+    }
 }
 
-static void openSettings() {
+static bool openSettings() {
+    bool result = false;
+
     if (LittleFS.begin()) {
         switch (Settings::begin()) {
             case Settings::ok:
-                connectWiFi();
+                result = true;
                 break;
 
             case Settings::oversizeFile:
@@ -81,16 +81,19 @@ static void openSettings() {
     else {
         EnvironmentDisplay::displayMessage("No file system");
     }
+
+    return result;
 }
 
-static void connectWiFi() {
+static WiFiConnection::wiFiStatus connectWiFi() {
     WiFiConnection::wiFiStatus connected = WiFiConnection::begin(
             Settings::get("WiFi_SSID"), Settings::get("WiFi_Password"));
 
     switch (connected) {
         case WiFiConnection::connected:
             EnvironmentDisplay::displayMessage("Connected");
-            AlexaControl::begin(Settings::get("Alexa_Name"), onDisplayChange);
+            //AlexaControl::begin(Settings::get("Alexa_Name"), onDisplayChange);
+            //NetworkTime::begin();
             break;
 
         case WiFiConnection::disconnected:
@@ -100,6 +103,8 @@ static void connectWiFi() {
         default:
             break;
     }
+
+    return connected;
 }
 
 /*
@@ -116,11 +121,9 @@ static void onDisplayChange(bool state, unsigned char value) {
 */
 
 static void updateEnvironment() {
-    /*
     Sensors::update();
     EnvironmentDisplay::displayTemperature(Sensors::getTemperature());
     EnvironmentDisplay::displayHumidity(Sensors::getHumidity());
     EnvironmentDisplay::displayBrightness(Sensors::getBrightness());
-    */
 }
 
