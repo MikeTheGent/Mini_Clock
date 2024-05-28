@@ -74,6 +74,9 @@ static bool openSettings() {
                 break;
         }
 
+        LittleFS.end();
+
+
         EnvironmentDisplay::displayMessage(Settings::get("WiFi_SSID"));
     }
     else {
