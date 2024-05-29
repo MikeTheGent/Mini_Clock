@@ -17,8 +17,13 @@ static Settings::settingStatus openSettings();
 static void updateEnvironment(void);
 
 void setup() {
-    Serial.begin(115200);
     Wire.begin();
+    Serial.begin(115200);
+
+    while(! Serial) {
+        delay(10);
+    }
+
     EnvironmentDisplay::begin();
     ClockDisplay::begin();
     Sensors::begin();

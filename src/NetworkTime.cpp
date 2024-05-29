@@ -17,6 +17,7 @@ namespace NetworkTime {
         setenv("TZ", Settings::get("TZ"), 1);
 
         if (rtc.begin()) {
+            rtcPresent = true;
             synchronise();
         }
 
