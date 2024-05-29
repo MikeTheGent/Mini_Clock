@@ -5,5 +5,6 @@
 namespace NetworkTime {
     bool begin(void);
     DateTime now(void);
+    void synchronise();
 }
 

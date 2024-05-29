@@ -4,10 +4,15 @@
 
 namespace WiFiConnection {
     namespace {
-        wiFiStatus status = disconnected;
+        String ssid;
+        String password;
     }
 
-    wiFiStatus begin(const char *ssid, const char *password) {
+    wiFiStatus begin(const char *wiFiSsid, const char *wifiPassword) {
+        wiFiStatus status = disconnected;
+        ssid = wiFiSsid;
+        password = wifiPassword;
+
         WiFi.mode(WIFI_STA);
         WiFi.begin(ssid, password);
         int waits = 0;
@@ -24,8 +29,17 @@ namespace WiFiConnection {
         return status;
     }
 
+    wiFiStatus reconnect() {
+        return begin(ssid.c_str(), password.c_str());
+    }
+
     wiFiStatus getStatus() {
-        return status;
+        if (WiFi.status() == WL_CONNECTED) {
+            return connected;
+        }
+        else {
+            return disconnected;
+        }
     }
 }
 

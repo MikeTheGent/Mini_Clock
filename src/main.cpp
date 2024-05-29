@@ -37,10 +37,26 @@ void setup() {
 void loop() {
     static unsigned long nextSensorUpdate = 0;
     static unsigned long previousMillis = 0;
-    AlexaControl::loop();
-
-    DateTime now = NetworkTime::now();
+    static DateTime lastRefreshTime = DateTime();
     static uint8_t currentMinute = 61;
+
+    AlexaControl::loop();
+    DateTime now = NetworkTime::now();
+    TimeSpan lastRefresh = now - lastRefreshTime;
+
+    /*
+    ** Periodically refresh the RTC from NTP.
+    */
+
+    if (lastRefresh.hours() > 4) {
+        if (WiFiConnection::getStatus() != WiFiConnection::connected) {
+            if (WiFiConnection::reconnect() == WiFiConnection::connected) {
+                NetworkTime::synchronise();
+            }
+        }
+
+        lastRefreshTime = now;
+    }
 
     if (now.minute() != currentMinute) {
         ClockDisplay::displayTime(now.hour(), now.minute());

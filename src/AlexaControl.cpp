@@ -16,6 +16,7 @@ namespace AlexaControl {
     namespace {
         Espalexa alexa;
         displayChangeCallback onDisplayChange = NULL;
+        bool initialised = false;
 
         void alexaCallback(EspalexaDevice* device) {
             if (onDisplayChange != NULL)
@@ -27,9 +28,12 @@ namespace AlexaControl {
         alexa.addDevice(deviceName, alexaCallback, EspalexaDeviceType::onoff);
         alexa.begin();        
         onDisplayChange = callback;
+        initialised = true;
     }
 
     void loop() {
-        alexa.loop();
+        if (initialised) {
+            alexa.loop();
+        }
     }
 }

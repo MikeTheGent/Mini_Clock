@@ -17,16 +17,10 @@ namespace NetworkTime {
         setenv("TZ", Settings::get("TZ"), 1);
 
         if (rtc.begin()) {
-            struct tm timeinfo;
-            getLocalTime(&timeinfo);
-            DateTime now(timeinfo.tm_year + 1900, timeinfo.tm_mon + 1, timeinfo.tm_mday, 
-                    timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
-            rtc.adjust(now);
-            rtcPresent = true;
-            Serial.printf("Adjusted %s\n", now.timestamp().c_str());
+            synchronise();
         }
 
-        return rtcPresent;    
+        return rtcPresent;
     }
 
     DateTime now() {
@@ -36,6 +30,14 @@ namespace NetworkTime {
         else {
             return DateTime();
         }
+    }
+
+    void synchronise() {
+        struct tm timeinfo;
+        getLocalTime(&timeinfo);
+        DateTime now(timeinfo.tm_year + 1900, timeinfo.tm_mon + 1, timeinfo.tm_mday, 
+                timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+        rtc.adjust(now);
     }
 }
 
