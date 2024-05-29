@@ -13,7 +13,7 @@
 
 void onDisplayChange(bool state);
 static WiFiConnection::wiFiStatus connectWiFi(void);
-static bool openSettings();
+static Settings::settingStatus openSettings();
 static void updateEnvironment(void);
 
 void setup() {
@@ -23,8 +23,14 @@ void setup() {
     ClockDisplay::begin();
     Sensors::begin();
 
-    if (openSettings()) {
-        connectWiFi();
+    if (openSettings() == Settings::ok) {
+        if (connectWiFi() == WiFiConnection::connected) {
+            AlexaControl::begin(Settings::get("Alexa_Name"), onDisplayChange);
+
+            if (! NetworkTime::begin()) {
+                EnvironmentDisplay::displayMessage("RTC not found");
+            }
+        }
     }
 }
 
@@ -53,13 +59,14 @@ void loop() {
     }
 }
 
-static bool openSettings() {
-    bool result = false;
+static Settings::settingStatus openSettings() {
+    Settings::settingStatus status = Settings::fileNotFound;
 
     if (LittleFS.begin()) {
-        switch (Settings::begin()) {
+        status = Settings::begin();
+
+        switch (status) {
             case Settings::ok:
-                result = true;
                 break;
 
             case Settings::oversizeFile:
@@ -81,7 +88,7 @@ static bool openSettings() {
         EnvironmentDisplay::displayMessage("No file system");
     }
 
-    return result;
+    return status;
 }
 
 static WiFiConnection::wiFiStatus connectWiFi() {
@@ -92,12 +99,6 @@ static WiFiConnection::wiFiStatus connectWiFi() {
     switch (connected) {
         case WiFiConnection::connected:
             EnvironmentDisplay::displayMessage("Connected");
-            AlexaControl::begin(Settings::get("Alexa_Name"), onDisplayChange);
-
-            if (! NetworkTime::begin()) {
-                EnvironmentDisplay::displayMessage("RTC not found");
-            }
-
             break;
 
         case WiFiConnection::disconnected:

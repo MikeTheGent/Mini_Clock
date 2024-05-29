@@ -23,6 +23,7 @@ namespace NetworkTime {
                     timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
             rtc.adjust(now);
             rtcPresent = true;
+            Serial.printf("Adjusted %s\n", now.timestamp().c_str());
         }
 
         return rtcPresent;    
