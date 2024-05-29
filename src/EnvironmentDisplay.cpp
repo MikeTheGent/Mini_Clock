@@ -73,9 +73,9 @@ namespace EnvironmentDisplay {
         tft.print(message);
     }
 
-    void switchDisplay(bool state, unsigned char value) {
+    void switchDisplay(bool state) {
         if (state) {
-            analogWrite(TFT_BL, value);
+            analogWrite(TFT_BL, 32);
         }
         else {
             analogWrite(TFT_BL, 0);

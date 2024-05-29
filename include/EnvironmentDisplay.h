@@ -8,5 +8,5 @@ namespace EnvironmentDisplay {
     void displayBrightness(long light);
     void displayMessage(const char *message);
     void clearMessage(void);
-    void switchDisplay(bool state, unsigned char value);
+    void switchDisplay(bool state);
 }

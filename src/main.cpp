@@ -11,9 +11,9 @@
 #include "ClockDisplay.h"
 #include "Sensors.h"
 
+void onDisplayChange(bool state);
 static WiFiConnection::wiFiStatus connectWiFi(void);
 static bool openSettings();
-static void onDisplayChange(bool, unsigned char value);
 static void updateEnvironment(void);
 
 void setup() {
@@ -75,8 +75,6 @@ static bool openSettings() {
         }
 
         LittleFS.end();
-
-
         EnvironmentDisplay::displayMessage(Settings::get("WiFi_SSID"));
     }
     else {
@@ -117,9 +115,10 @@ static WiFiConnection::wiFiStatus connectWiFi() {
 ** Callback for Alexa events. Change on/off state and/or brightness of the displays.
 */
 
-static void onDisplayChange(bool state, unsigned char value) {
-    EnvironmentDisplay::switchDisplay(state, value);
-    ClockDisplay::switchDisplay(state, value);
+void onDisplayChange(bool state) {
+    Serial.printf("onDisplayChange %d\n", state);
+    EnvironmentDisplay::switchDisplay(state);
+    ClockDisplay::switchDisplay(state);
 }
 
 /*

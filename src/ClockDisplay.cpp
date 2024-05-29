@@ -16,9 +16,10 @@ namespace ClockDisplay {
 
     void begin() {
         display.begin();
-        switchDisplay(true, 32);
+        switchDisplay(true);
         display.setBlink(3);
         display.displayTime(99, 99);
+        display.brightness(32);
     }
 
     void displayTime(const struct tm *clockTime) {
@@ -30,10 +31,9 @@ namespace ClockDisplay {
         display.setBlink(0);
     }
 
-    void switchDisplay(bool state, unsigned char value) {
+    void switchDisplay(bool state) {
         if (state) {
             display.displayOn();
-            display.brightness(map(value, 4, 254, 0, 15));
         }
         else {
             display.displayOff();

@@ -9,32 +9,27 @@
 */
 
 #include <Arduino.h>
-#include <fauxmoESP.h>
+#include <Espalexa.h>
 #include "AlexaControl.h"
 
 namespace AlexaControl {
     namespace {
-        fauxmoESP fauxmo;
+        Espalexa alexa;
         displayChangeCallback onDisplayChange = NULL;
 
-        void alexaCallback(unsigned char deviceId, const char *deviceName,
-                bool state, unsigned char value) {
-
+        void alexaCallback(EspalexaDevice* device) {
             if (onDisplayChange != NULL)
-                (onDisplayChange)(state, value);
+                (onDisplayChange)(device->getState());
         }
     }
 
     void begin(const char *deviceName, displayChangeCallback callback) {
-        fauxmo.createServer(true);
-        fauxmo.setPort(80);
-        fauxmo.enable(true);
-        fauxmo.addDevice(deviceName);
-        fauxmo.onSetState(alexaCallback);
+        alexa.addDevice(deviceName, alexaCallback, EspalexaDeviceType::onoff);
+        alexa.begin();        
         onDisplayChange = callback;
     }
 
     void loop() {
-        fauxmo.handle();
+        alexa.loop();
     }
 }
