@@ -116,7 +116,6 @@ static WiFiConnection::wiFiStatus connectWiFi() {
 */
 
 void onDisplayChange(bool state) {
-    Serial.printf("onDisplayChange %d\n", state);
     EnvironmentDisplay::switchDisplay(state);
     ClockDisplay::switchDisplay(state);
 }
