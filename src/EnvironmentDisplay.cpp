@@ -13,7 +13,6 @@ namespace EnvironmentDisplay {
         const uint8_t backlightChannel = 1;
         const uint8_t backlightPin = TFT_BL;
         const GFXfont *largeFont = &FreeSerif18pt7b;
-        //const GFXfont *smallFont = &FreeSerif12pt7b;
         const uint16_t backgroundColour = TFT_BLACK;
     }
 
