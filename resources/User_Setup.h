@@ -10,10 +10,9 @@
 
 #define TFT_SCLK  14
 #define TFT_MOSI  13
-//#define TFT_RST   3
 #define TFT_DC    12
 #define TFT_CS    15
-#define TFT_BL    16
+#define TFT_BL     0
 
 #define TFT_BACKLIGHT_ON HIGH
 

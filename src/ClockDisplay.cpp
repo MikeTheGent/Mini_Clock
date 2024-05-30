@@ -19,7 +19,7 @@ namespace ClockDisplay {
         switchDisplay(true);
         display.setBlink(3);
         display.displayTime(99, 99);
-        display.brightness(32);
+        display.setBrightness(8);
     }
 
     void displayTime(const struct tm *clockTime) {
