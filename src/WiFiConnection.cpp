@@ -1,3 +1,8 @@
+/*
+** Handle a WiFi connection.
+**
+** (C) 2024, Mike Wilson. MIT License -- see LICENSE file included in the distribution.
+*/
 
 #include <ESP8266WiFi.h>
 #include "WiFiConnection.h"

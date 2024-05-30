@@ -1,6 +1,6 @@
 /*
 ** Alexa Control uses the Espalexa library to connext to Alexa. This can
-** turn the displays. If Alexa control isn't required, this module &
+** turn the displays on & off. If Alexa control isn't required, this module &
 ** the WiFi Connection module can probably be removed -- I haven't tested this, but
 ** I believe it would be a trivial change.
 **

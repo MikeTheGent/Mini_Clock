@@ -1,3 +1,8 @@
+/*
+** Retrieve settings from a JSON file.
+**
+** (C) 2024, Mike Wilson. MIT License -- see LICENSE file included in the distribution.
+*/
 
 #include <ArduinoJson.h>
 #include <LittleFS.h>

@@ -1,3 +1,8 @@
+/*
+** Synchronise a real time clock with a network time server.
+**
+** (C) 2024, Mike Wilson. MIT License -- see LICENSE file included in the distribution.
+*/
 
 #include <Arduino.h>
 #include "NetworkTime.h"

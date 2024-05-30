@@ -1,3 +1,9 @@
+/*
+** Clock with two displays -- a larger LED display that can be read across a typical
+** living room and a smaller TFT to display environment information.
+**
+** (C) 2024, Mike Wilson. MIT License -- see LICENSE file included in the distribution.
+*/
 
 #include <Arduino.h>
 #include <LittleFS.h>
