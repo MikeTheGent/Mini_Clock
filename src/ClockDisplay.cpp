@@ -22,10 +22,6 @@ namespace ClockDisplay {
         display.setBrightness(8);
     }
 
-    void displayTime(const struct tm *clockTime) {
-        displayTime(clockTime->tm_hour, clockTime->tm_min);
-    }
-
     void displayTime(uint8_t hour, uint8_t minute) {
         display.displayTime(hour, minute);
         display.setBlink(0);
