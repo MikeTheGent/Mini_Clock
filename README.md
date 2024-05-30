@@ -12,7 +12,7 @@
 
  Many mods are possible to suit different hardware.
 
- The version I am building uses a Wemos/Lolin D1 Mini with an ESP8266.
+ The version I am building uses a Wemos/Lolin D1 Mini clone with an ESP8266.
 
  Much more info to follow. Questions welcome.
 
@@ -35,8 +35,8 @@ this is for the older clock project
 
 ## WiFi & Alexa
 
-By default, the clock connects to WiFi and emulates a Phillips bulb using the fauxmoESP
-library. The brightness can be adjusted and the displays turned off using Alexa. This
+By default, the clock connects to WiFi and then to Alexa using the
+Espalexa library. The displays turned off using Alexa. This
 feature can be easily removed in main.cpp.
 
 ## Case
