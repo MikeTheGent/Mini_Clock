@@ -13,7 +13,6 @@ namespace NetworkTime {
         const char *ntpServer = NULL;
         RTC_DS3231 rtc;
         bool rtcPresent = false;
-
     }
 
     bool begin() {
