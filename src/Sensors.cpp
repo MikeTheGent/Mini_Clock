@@ -1,6 +1,6 @@
 /*
 ** Environment sensors. Eg, temperature, humidity, light level. Originally designed
-** to use a BH1750 light sensor & ClosedCube HDC1080 temperature & humidity sensor.
+** to use a BH1750 light sensor & BME208 temperature & humidity sensor.
 ** Either of these can be substituted with appropriate alternatives.
 **
 ** (C) 2024, Mike Wilson. MIT License -- see LICENSE file included in the distribution.
