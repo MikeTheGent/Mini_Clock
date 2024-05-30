@@ -31,8 +31,7 @@ But why?
 
 ## Parts
 
-Find the Parts List in the [Wiki](https://github.com/MikeTheGent/Dual_Clock/wiki) FIXME:
-this is for the older clock project
+Find the Parts List in the [Wiki](https://github.com/MikeTheGent/Mini_Clock/wiki)
 
 ## WiFi & Alexa
 
