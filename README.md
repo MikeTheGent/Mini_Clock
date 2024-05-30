@@ -12,7 +12,7 @@
 
  Many mods are possible to suit different hardware.
 
- The version I am building uses a Wemos/Lolin D1 Mini with an ESP8266.
+ The version I am building uses a Wemos/Lolin D1 Mini clone with an ESP8266.
 
  Much more info to follow. Questions welcome.
 
