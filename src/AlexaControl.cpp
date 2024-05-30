@@ -1,7 +1,6 @@
 /*
-** Alexa Control uses the fauxmoESP library to emulate a Phillips bulb. This can
-** control the brightness of the clock displays and turn the displays off without
-** turning off the GPS receiver. If Alexa control isn't required, this module &
+** Alexa Control uses the Espalexa library to connext to Alexa. This can
+** turn the displays. If Alexa control isn't required, this module &
 ** the WiFi Connection module can probably be removed -- I haven't tested this, but
 ** I believe it would be a trivial change.
 **
