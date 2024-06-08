@@ -33,7 +33,7 @@ namespace EnvironmentDisplay {
 
         tft.setCursor(10, 114);
         tft.setTextColor(TFT_YELLOW, backgroundColour);
-        tft.print("Light");
+        tft.print("Pressure");
 
         displayTemperature(0.0);
         displayHumidity(0);
