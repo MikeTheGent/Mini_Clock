@@ -42,27 +42,35 @@ namespace EnvironmentDisplay {
     }
 
     void displayTemperature(float temperature) {
-        tft.fillRect(220, 9, 99, 34, backgroundColour);
+        tft.fillRect(200, 9, 99, 34, backgroundColour);
         tft.setTextColor(TFT_ORANGE, backgroundColour);
         tft.setFreeFont(largeFont);
-        tft.setCursor(220, 34);
+        tft.setCursor(200, 34);
         tft.printf("%.1f", temperature);
     }
     
     void displayHumidity(long humidity) {
-        tft.fillRect(220, 49, 99, 34, backgroundColour);
+        tft.fillRect(200, 49, 99, 34, backgroundColour);
         tft.setTextColor(TFT_CYAN, backgroundColour);
         tft.setFreeFont(largeFont);
-        tft.setCursor(220, 74);
+        tft.setCursor(200, 74);
         tft.printf("%ld%%", humidity);
     }
 
     void displayBrightness(long light) {
-        tft.fillRect(220, 89, 99, 34, backgroundColour);
+        tft.fillRect(200, 89, 99, 34, backgroundColour);
         tft.setTextColor(TFT_YELLOW, backgroundColour);
         tft.setFreeFont(largeFont);
-        tft.setCursor(220, 114);
+        tft.setCursor(200, 114);
         tft.printf("%ld", light);
+    }
+
+    void displayPressure(float pressure) {
+        tft.fillRect(200, 89, 99, 34, backgroundColour);
+        tft.setTextColor(TFT_YELLOW, backgroundColour);
+        tft.setFreeFont(largeFont);
+        tft.setCursor(200, 114);
+        tft.printf("%.1f", pressure);
     }
 
     void displayMessage(const char *message) {

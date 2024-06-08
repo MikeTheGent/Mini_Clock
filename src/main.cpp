@@ -156,6 +156,7 @@ static void updateEnvironment() {
     Sensors::update();
     EnvironmentDisplay::displayTemperature(Sensors::getTemperature());
     EnvironmentDisplay::displayHumidity(Sensors::getHumidity());
-    EnvironmentDisplay::displayBrightness(Sensors::getBrightness());
+    //EnvironmentDisplay::displayBrightness(Sensors::getBrightness());
+    EnvironmentDisplay::displayPressure(Sensors::getPressure());
 }
 
