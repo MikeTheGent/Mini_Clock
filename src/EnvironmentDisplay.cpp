@@ -37,7 +37,7 @@ namespace EnvironmentDisplay {
 
         displayTemperature(0.0);
         displayHumidity(0);
-        displayBrightness(0);
+        displayPressure(0);
         switchDisplay(true);
     }
 
@@ -55,14 +55,6 @@ namespace EnvironmentDisplay {
         tft.setFreeFont(largeFont);
         tft.setCursor(200, 74);
         tft.printf("%ld%%", humidity);
-    }
-
-    void displayBrightness(long light) {
-        tft.fillRect(200, 89, 99, 34, backgroundColour);
-        tft.setTextColor(TFT_YELLOW, backgroundColour);
-        tft.setFreeFont(largeFont);
-        tft.setCursor(200, 114);
-        tft.printf("%ld", light);
     }
 
     void displayPressure(float pressure) {
@@ -88,5 +80,10 @@ namespace EnvironmentDisplay {
         else {
             analogWrite(TFT_BL, 0);
         }
+    }
+
+    void adjustBrightness(long brightness) {
+        uint8_t constrained = constrain(map(brightness, 0, 1000, 1, 255), 1, 255);
+        analogWrite(TFT_BL, constrained);
     }
 }

@@ -19,12 +19,17 @@ namespace ClockDisplay {
         switchDisplay(true);
         display.setBlink(3);
         display.displayTime(99, 99);
-        display.setBrightness(8);
+        display.setBrightness(2);
     }
 
     void displayTime(uint8_t hour, uint8_t minute) {
         display.displayTime(hour, minute);
         display.setBlink(0);
+    }
+
+    void adjustBrightness(long brightness) {
+        uint8_t constrained = constrain(map(brightness, 0, 400, 1, 15), 0, 15);
+        display.setBrightness(constrained);
     }
 
     void switchDisplay(bool state) {
