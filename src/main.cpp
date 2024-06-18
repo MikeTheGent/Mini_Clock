@@ -121,7 +121,7 @@ static Settings::settingStatus openSettings() {
 static WiFiConnection::wiFiStatus connectWiFi() {
     EnvironmentDisplay::displayMessage("Connecting");
     WiFiConnection::wiFiStatus connected = WiFiConnection::begin(
-            Settings::get("WiFi_SSID"), Settings::get("WiFi_Password"));
+        Settings::get("WiFi_SSID"), Settings::get("WiFi_Password"));
 
     switch (connected) {
         case WiFiConnection::connected:
