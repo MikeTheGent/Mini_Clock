@@ -8,7 +8,7 @@ namespace WiFiConnection {
     } wiFiStatus;
 
     wiFiStatus begin(const char *ssid, const char *password);
-    wiFiStatus reconnect();
-    wiFiStatus getStatus();
+    wiFiStatus reconnect(void);
+    wiFiStatus getStatus(void);
 }
 

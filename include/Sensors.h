@@ -6,6 +6,6 @@ namespace Sensors {
     void update(void);
     float getTemperature(void);
     float getHumidity(void);
-    float getPressure();
+    float getPressure(void);
     long getBrightness(void);
 }
