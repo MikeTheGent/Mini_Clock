@@ -35,7 +35,13 @@ namespace WiFiConnection {
     }
 
     wiFiStatus reconnect() {
-        return begin(ssid.c_str(), password.c_str());
+        wiFiStatus status = disconnected;
+
+        if (WiFi.status() != WL_CONNECTED) {
+            status = begin(ssid.c_str(), password.c_str());
+        }
+
+        return status;
     }
 
     wiFiStatus getStatus() {
